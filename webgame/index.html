@@ -25,18 +25,18 @@
             position: relative;
             width: 800px;
             height: 200px;
-            background-color: #e3e3e3;
+            background-color:#333;
             overflow: hidden;
-            border: 2px solid black;
+            border: 3px solid black;
         }
-        #dino {
+        #player {
             position: absolute;
             bottom: 0;
             width: 40px;
             height: 40px;
-            background-color: #333;
+            background-color:blue;
         }
-        .cactus {
+        .object {
             position: absolute;
             bottom: 0;
             width: 20px;
@@ -52,11 +52,11 @@
 </head>
 <body>
     <div id="game">
-        <div id="dino"></div>
+        <div id="player"></div>
     </div>
 
     <script>
-        const dino = document.getElementById('dino');
+        const player = document.getElementById('player');
         const game = document.getElementById('game');
 
         let isJumping = false;
@@ -82,38 +82,38 @@
                             isJumping = false;
                         }
                         position -= 5;
-                        dino.style.bottom = position + 'px';
+                        player.style.bottom = position + 'px';
                     }, 20);
                 }
 
                 position += 30;
-                dino.style.bottom = position + 'px';
+                player.style.bottom = position + 'px';
             }, 20);
         }
 
-        function createCactus() {
-            let cactus = document.createElement('div');
-            cactus.classList.add('cactus');
-            game.appendChild(cactus);
-            cactus.style.right = '0px';
+        function createObject() {
+            let object = document.createElement('div');
+            object.classList.add('object');
+            game.appendChild(object);
+            object.style.right = '0px';
 
-            let moveCactusInterval = setInterval(function() {
-                let cactusPosition = parseInt(window.getComputedStyle(cactus).getPropertyValue('right'));
-                let dinoPosition = parseInt(window.getComputedStyle(dino).getPropertyValue('bottom'));
+            let moveObjectInterval = setInterval(function() {
+                let objectPosition = parseInt(window.getComputedStyle(object).getPropertyValue('right'));
+                let playerPosition = parseInt(window.getComputedStyle(player).getPropertyValue('bottom'));
 
-                if (cactusPosition > 760 && cactusPosition < 800 && dinoPosition < 40) {
-                    clearInterval(moveCactusInterval);
+                if (objectPosition > 760 && objectPosition < 800 && playerPosition < 40) {
+                    clearInterval(moveObjectInterval);
                     alert('Game Over');
                     document.location.reload();
                 }
 
-                cactus.style.right = (cactusPosition + 5) + 'px';
+                object.style.right = (objectPosition + 5) + 'px';
             }, 20);
 
-            setTimeout(createCactus, Math.random() * 3000 + 1000);
+            setTimeout(createObject, Math.random() * 3000 + 1000);
         }
 
-        createCactus();
+        createObject();
     </script>
 </html>
 </body>
